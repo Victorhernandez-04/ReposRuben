@@ -1,0 +1,25 @@
+﻿@page "/shop"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorCliente.Shared
+@inject HttpClient Http
+
+@attribute [Authorize]
+
+<p>TIENDA</p>
+@code {
+    private Shop[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            forecasts = await Http.GetFromJsonAsync<Shop[]>("Shop");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

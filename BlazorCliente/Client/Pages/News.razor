@@ -1,0 +1,8 @@
+﻿@page "/news"
+@inject NavigationManager NavManager
+
+<AuthorizeView>
+    <Authorized>
+        <a class="nav-link btn btn-link" href="createnews">Añadir Noticias</a>
+    </Authorized>
+</AuthorizeView>

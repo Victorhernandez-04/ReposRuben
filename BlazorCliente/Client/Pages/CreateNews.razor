@@ -1,0 +1,22 @@
+﻿@page "/createnews"
+
+<h2>Titulo</h2>
+<input type="text" id="tit" name="tit" @bind-value="@titulo">
+<br />
+<h2>Resumen</h2>
+<textarea id="res" name="res" rows="5" cols="50" @bind="@resumen"></textarea>
+<br />
+<h2>Cuerpo</h2>
+<textarea id="cuer" name="cuer" rows="10" cols="50" @bind="@cuerpo"></textarea>
+<br />
+<button class="btn btn-verde" @onclick="guardar">Guardar</button>
+
+@code {
+    public string titulo { get; set; }
+    public string resumen { get; set; }
+    public string cuerpo { get; set; }
+
+    public void guardar()
+    {
+    }
+}

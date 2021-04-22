@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" style="height: 100%">
+    <ul class="nav flex-column" style="height: 85%">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="news">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> News
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="createtournament">
+                <span class="oi oi-plus" aria-hidden="true"></span>Create Tournament
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="oficialtournaments">
+                <span class="oi oi-globe" aria-hidden="true"></span>Oficial Tournaments
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="globalstadistics">
+                <span class="oi oi-graph" aria-hidden="true"></span>Global Stadistics
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="shop">
+                <span class="oi oi-cart" aria-hidden="true"></span>Shop
+            </NavLink>
+        </li>
+    </ul>
+    <ul class="nav flex-column" style="bottom: auto; height: 15%">
+        <AuthorizeView>
+            <Authorized>
+                <li class="nav-item px-3" style="bottom: auto; cursor: pointer">
+                    <NavLink class="nav-link" @onclick="BeginSignOut">
+                        <span class="oi oi-account-login" aria-hidden="true"></span>Log Out
+                    </NavLink>
+                </li>
+            </Authorized>
+            <NotAuthorized>
+                <li class="nav-item px-3" style="bottom: auto; cursor: pointer">
+                    <NavLink class="nav-link" @onclick="LoginRedirect">
+                        <span class="oi oi-account-login" aria-hidden="true"></span>Login
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3" style="bottom: auto; cursor: pointer">
+                    <NavLink class="nav-link" @onclick="RegisterRedirect" >
+                        <span class="oi oi-account-login" aria-hidden="true"></span>Register
+                    </NavLink>
+                </li>
+            </NotAuthorized>
+        </AuthorizeView>
+    </ul>
+</div>
+
+@code
+{ private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+
+    private void LoginRedirect()
+    {
+        Navigation.NavigateTo("authentication/login");
+    }
+
+    private void RegisterRedirect()
+    {
+        Navigation.NavigateTo("authentication/register");
+    } 
+    }
